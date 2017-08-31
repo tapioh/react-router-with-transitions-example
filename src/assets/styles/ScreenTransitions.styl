@@ -1,0 +1,137 @@
+baseClass = 'screen-transition'
+fadeDurationInMs = 300ms
+modalOpenDurationInMs = 300ms
+slideDurationInMs = 300ms
+
+.{baseClass}
+
+  // FADE
+  &-fade-enter
+
+    .header-content,
+    .screen-content
+      opacity: 0.01
+
+  &-fade-enter.{baseClass}-fade-enter-active
+
+    .header-content,
+    .screen-content
+      opacity: 1
+      transition: opacity fadeDurationInMs ease-in
+
+  &-fade-exit
+
+    .header-content,
+    .screen-content
+      opacity: 1
+
+  &-fade-exit.{baseClass}-fade-exit-active
+
+    .header-content,
+    .screen-content
+      opacity: 0.01
+      transition: opacity fadeDurationInMs ease-in
+
+
+  // MODAL
+  &-modal-enter
+    transform: translateY(101%)
+
+  &-modal-enter.{baseClass}-modal-enter-active
+    transform: translateY(0)
+    transition: transform modalOpenDurationInMs ease-out
+
+  &-modal-exit
+    transform: translateY(0)
+
+  &-modal-exit.{baseClass}-modal-exit-active
+    transform: translateY(101%)
+    transition: transform modalOpenDurationInMs ease-out
+
+  // When modal opens, always fade out current screen
+  &-modal-enter-active + .screen-container
+
+    .header-content,
+    .screen-content
+      transition: opacity fadeDurationInMs ease-in, transform fadeDurationInMs ease-in !important
+      opacity: 0 !important
+      transform: none !important
+
+
+
+  // SLIDE FORWARDS
+  &-slide-forwards-enter
+
+    .header-content,
+    .screen-content
+      transform: translateX(101%)
+
+  &-slide-forwards-enter.{baseClass}-slide-forwards-enter-active
+
+    .header-content,
+    .screen-content
+      transform: translateX(0)
+      transition: transform slideDurationInMs ease-out
+
+  &-slide-forwards-exit
+
+    .header-content,
+    .screen-content
+      opacity: 1
+
+  &-slide-forwards-exit.{baseClass}-slide-forwards-exit-active
+
+    .header-content,
+    .screen-content
+      opacity: 0.01
+      transform: translateX(-10%)
+      transition: opacity fadeDurationInMs ease-in, transform slideDurationInMs ease-out
+
+  // When sliding forwards, always slide current screen slightly to the left
+  &-slide-forwards-enter-active + .screen-container
+
+    .header-content,
+    .screen-content
+      opacity: 0.01 !important
+      transform: translateX(-10%) !important
+      transition: opacity fadeDurationInMs ease-in, transform slideDurationInMs ease-out !important
+
+
+  // SLIDE BACK
+  &-slide-back-enter
+
+    .header-content,
+    .screen-content
+      opacity: 0.01
+      transform: translateX(-30%)
+
+  &-slide-back-enter.{baseClass}-slide-back-enter-active
+
+    .header-content,
+    .screen-content
+      opacity: 1
+      transform: translateX(0)
+      transition: opacity fadeDurationInMs ease-in, transform slideDurationInMs ease-out
+
+  &-slide-back-exit
+
+    .header-content,
+    .screen-content
+      opacity: 1
+
+  &-slide-back-exit.{baseClass}-slide-back-exit-active
+
+    .header-content,
+    .screen-content
+      opacity: 0.01
+      transform: translateX(80%)
+      transition: opacity (slideDurationInMs - 150ms) ease-out, transform slideDurationInMs ease-out
+      
+  // When sliding back, always slide current screen slightly to the right
+  &-slide-back-enter-active + .screen-container
+
+    .header-content,
+    .screen-content
+      opacity: 0.01
+      transform: translateX(80%)
+      transition: opacity (slideDurationInMs - 150ms) ease-out, transform slideDurationInMs ease-out
